@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, create_model
 import joblib
 import numpy as np
 
-# Load model tuple: (model, feature_columns)
+# Load model and feature list
 MODEL_PATH = "models/redbridge_ai_v2.0.0.pkl"
 model, feature_columns = joblib.load(MODEL_PATH)
 
@@ -13,10 +13,10 @@ app = FastAPI()
 def root():
     return {"message": "RedBridge AI is live."}
 
-# Dynamically generate request schema
-def create_payload_model(feature_columns):
-    fields = {col: (float, ...) for col in feature_columns}
-    return type("PayloadModel", (BaseModel,), fields)
+# Dynamically create a Pydantic model for input validation
+def create_payload_model(columns):
+    fields = {col: (float, ...) for col in columns}
+    return create_model("PayloadModel", **fields)
 
 PayloadModel = create_payload_model(feature_columns)
 
