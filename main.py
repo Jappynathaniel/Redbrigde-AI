@@ -3,11 +3,9 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 
-# Load model
+# Load model tuple: (model, feature_columns)
 MODEL_PATH = "models/redbridge_ai_v2.0.0.pkl"
-model_bundle = joblib.load(MODEL_PATH)
-model = model_bundle['model']
-feature_columns = model_bundle['feature_columns']
+model, feature_columns = joblib.load(MODEL_PATH)
 
 app = FastAPI()
 
@@ -15,7 +13,7 @@ app = FastAPI()
 def root():
     return {"message": "RedBridge AI is live."}
 
-# Dynamically define a request model
+# Dynamically generate request schema
 def create_payload_model(feature_columns):
     fields = {col: (float, ...) for col in feature_columns}
     return type("PayloadModel", (BaseModel,), fields)
