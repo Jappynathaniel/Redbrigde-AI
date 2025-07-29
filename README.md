@@ -54,6 +54,9 @@ text
 - **Monitoring:** Built-in health checks and logging
 - **Design:** RESTful API with business intelligence
 
+  ![WhatsApp Image 2025-07-29 at 14 53 51_7ecd8e7c](https://github.com/user-attachments/assets/e3df2ba0-5b1d-4062-a750-9e0310bfcd67)
+
+
 ## 📈 What's Next
 - **ML Model Integration:** Deploy ensemble learning model (RF + LightGBM)
 - **Advanced Monitoring:** Prometheus metrics + Grafana dashboards
